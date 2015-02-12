@@ -1,0 +1,12 @@
+{
+
+  "app" : "dialogs",
+  "version" : "beta 1.0",
+  "dependencias" : [ "jquery" , "less" ],
+  "autor" : "gomosoft",
+  "style" : "less/estilo.less",
+  "vistas" : "",
+  "tipo" : "plugin",
+  "layout" :  { "contenedor" :  false , "vistaPersonalizada" : false, "menu" : { "nombre" : "" ,  "ubicacion" :{ "padre" :  false , "texto" :  false} } }  
+
+}

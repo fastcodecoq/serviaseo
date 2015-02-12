@@ -1,0 +1,85 @@
+<!-- <div id="bar">
+<div style='width:100%;'>
+
+	 <div class="blocked">
+	 	<span>Para usar las herramientas haz clic sobre un icono de edición (&nbsp;<i class="icon-edit" style="font-size:10px; color:white"></i>&nbsp;)</span> 
+	 	<br />
+	 	<br />
+	 
+	 </div>
+
+ <ul class='navbar controls'>
+
+ <li >
+
+    <form data-role="ui-action" data-action="change-background" >
+    	<label class="div">Fondo</label>
+
+    	 <label >Color</label>     	 
+    	 <input type="hidden" id="colorpick" data-command="background-color" />   
+    	  <br />
+    	  <br />
+    	 <label>Imágen</label> 
+    	 <div class='cont'>
+
+    	 	<small>Seleccionar &nbsp;</small>
+    	 	<a href="#" data-action data-command="media" data-select="ok" data-filter="images" data-target="#img-bg"><i class="icon-picture"></i></a>
+            <div id="thumbnail" style='width:0; height:0; max-width:60px,  margin-top:7px; margin:0 auto'><br /></div>   
+    	 	<input type="hidden" data-command="background-image" id="img-bg"/> 
+    	
+
+    	 	</div>	
+    		 
+    </form>
+
+    <br />
+
+ </li>
+
+ <li >
+
+   </li>
+
+ <li class='nav bottom-buttons'> 	
+    <br />
+     	<a href='guardar_' class='btn btn-success btn-block disabled'>Guardar</a>
+    <br />
+ 	<a href='dev_off' class='btn btn-block'>Terminar Edición</a>
+
+
+ </li>
+
+
+ </ul>
+
+</div> 
+ 
+</div>  -->
+
+<div class='control' style='position:fixed;  bottom:0; width:100%; padding:10px; ' >
+                 <div class='toCenter' style=''>
+                 <a href='dev_off' class='btn'>Terminar edición</a>
+                 &nbsp;&nbsp;&nbsp;
+                 <a href='#guardar_' class='btn btn-success sucesss disabled'>Guardar</a>
+                 </div>
+                 </div>
+
+<script src="panel/js/spectrum.js"></script>
+
+
+<script>
+
+
+  //$("#bar").sidebar();
+   var control  = "<div class='control' style='position:fixed;  bottom:0; width:100%; padding:10px; ' >"
+                 +"<div class='toCenter' style=''>"
+                 +"<a href='dev_off' class='btn'>Terminar edición</a>"
+                 +"&nbsp;&nbsp;&nbsp;"
+                 +"<a href='#guardar_' class='btn btn-success sucesss disabled'>Guardar</a>"
+                 +"</div>"
+                 +"</div>"
+                 ;
+  $("#container").css({"pading-bottom" : "60px !important"} );
+
+</script>
+

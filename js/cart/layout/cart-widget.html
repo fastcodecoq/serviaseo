@@ -1,0 +1,66 @@
+<div class="fixed span3" id="cart-widget" style="display:none">
+
+ <div class="span12" id="dropProduct">
+
+ </div>
+
+ <table>
+ <thead>
+   <tr>
+     <td><a href="#" class="no-under" data-toggle="tooltip" title="ver productos" style="color:black; font-size: 12px;" title="Ver carro"><i class="icon-shopping-cart"></i> &nbsp;productos</a> <b data-role='cart-products-aq'>(0)</b></td>
+     <td>Total <b data-role="cart-products-total">$10.000</b></td>
+   </tr>   
+ </thead>
+  <tbody>
+     <tr>
+     </tr>
+  </tbody>
+
+ </table>
+ <a href="/summary" rel="nofollow" class='btn btn-success btn-small' style="width: 98%;
+padding: .2em 0.1em .2em .2em;
+margin-top: 0.2em;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.56);">Ver Carro</a>
+
+
+</div>
+
+<script type="text/javascript" src="js/LSutil.js"></script>
+<script type="text/javascript">
+
+ 
+  function ini_cart_widget(){
+  	
+
+
+	if(ls)
+	  if(obtLS().length > 0){
+
+
+	  	var items = obtLS();	  	
+	  	var it_total = 0;
+	  	
+
+	  	for(x in items){	  		
+      
+
+	  			 it_total += items[x].quantity;		  			 			
+
+	  	}
+
+
+
+	  	$("*[data-role = 'cart-products-aq']").text("(" + it_total  + ")");
+	  	$("*[data-role = 'cart-products-total']").text("$" + number_format(obtTotal() ,0,"'",".") );	  	
+	  	$("#cart-widget").fadeIn();
+
+	  }
+
+
+	}
+
+ $(ini_cart_widget);
+
+
+
+</script>

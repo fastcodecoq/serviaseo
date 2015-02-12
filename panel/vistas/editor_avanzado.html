@@ -1,0 +1,190 @@
+  <div id="editor" style="display:none">
+      <form>
+  <div id="toolbar" class='alert' style="position:relative">
+
+
+   
+    <a data-wysihtml5-command="bold"  title="CTRL+B"><i class='icon-bold'></i></a> 
+    <a data-wysihtml5-command="italic"  title="CTRL+I"><i class='icon-italic'></i></a>
+    <a data-wysihtml5-command="underline"  title="CTRL+U"><i class='icon-underline'></i></a>
+    <a data-wysihtml5-command="justifyLeft"  title="Alinear a la izquierda"><i class='icon-align-left'></i></a>
+    <a data-wysihtml5-command="justifyCenter"  title="Alinear al centro"><i class='icon-align-center'></i></a>
+    <a data-wysihtml5-command="justifyRight"  title="Alinear a la derecha"><i class='icon-align-right'></i></a>    
+    <a data-wysihtml5-command="Indent" title="Sangría" href="javascript:;" unselectable="on"><i class="icon-indent-right"></i></a>
+    <a data-wysihtml5-command="Outdent" title="Eliminar sangría" href="javascript:;" unselectable="on"><i class="icon-indent-left"></i></a>
+ 
+    <a data-wysihtml5-command="createLink" title="Insertar enlace"><i class='icon-link'></i></a> 
+    <a data-wysihtml5-command="pasteFromWord" title="Pegar desde word"><strong>W</strong> <i class='icon-paste'></i></a> 
+    
+     <span style='position: relative' id="groupColors" >     
+ 
+     <a data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text" class="command"> 
+                    </a>
+
+             <ul id='colors' >
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver" title="plata"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray" title="gris"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="maroon" title="marron"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" title="rojo"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="pink" title="fuscia"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="purple" title="morado"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green" title="verde"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="olive" title="oliva"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="navy" title="azul oscuro"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="black" title="Negro"></li>
+              <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue" title="azul"></li>
+            </ul>
+
+        </span>
+ <span><a data-wysihtml5-command="insertVideo" title="Insertar Video"><i class='icon-play'></i></a> </span>
+  </span>
+    <span style='position: relative'><a data-wysihtml5-command="insertImage" title="Insertar Imagen"><i class='icon-picture'></i></a> 
+
+
+       
+        <div data-wysihtml5-dialog="insertImage" id="insert-img" style="background:white; paddding: 10px; display: none; position:absolute">
+      <label>
+        <br />
+        Imágen: &nbsp;
+        <a href="#insertar-imagen" class="btn " data-select="ok" data-filter="images" data-target="#insert_img">Seleccionar Imágen</a>     
+        <br />   
+        <input data-wysihtml5-dialog-field="src" value="http://" type="hidden" id="insert_img">
+      </label>
+      <br />
+      <label>
+        Tamaño:
+        <select data-wysihtml5-dialog-field="className">
+          <option value="">Original</option>
+          <option value="wysiwyg-img-small">Pequeño</option>
+          <option value="wysiwyg-img-medium">Mediano</option>
+          <option value="wysiwyg-img-big">Grande</option>
+        </select>
+      </label>
+      <br />
+      <a data-wysihtml5-dialog-action="save" href='#'>Aceptar</a>&nbsp;<a data-wysihtml5-dialog-action="cancel" href='#'>Cancelar</a>
+    </div>
+    </span>
+    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" title="Título grande">h1</a> 
+    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Título mediano">h2</a> 
+    <a data-wysihtml5-command="insertUnorderedList" title="Insertar Lista"><i class='icon-list-ul'></i></a> 
+    <a data-wysihtml5-command="insertOrderedList" title="Insertar lista numerada"><i class='icon-list-ol'></i></a> 
+
+    
+    <div data-wysihtml5-dialog="createLink" style="display: none;">
+      <label>
+        Link: <input  data-wysihtml5-dialog-field="href" value="http://">
+      </label>
+      <a data-wysihtml5-dialog-action="save">Aceptar</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancelar</a>
+    </div>
+
+
+
+    
+
+    <a data-wysihtml5-action="change_view" title="cambiar a HTML" class="action html"><i class='icon-code'></i></a>
+
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+       <a data-wysihtml5-command="insertSpeech" title="Insertar por Dicción" class="command" style='position:relative'></a>
+           <a  title="pantalla completa" class="_full" style="margin-right: -14px; font-size: .9em; position: absolute; top: 25%; right: 7%;"><i class='icon-resize-full'></i></a>
+  <a href='#cerrar' rel="#editor" class="pull-right no-under" title="Cerrar" style="margin-right: -14px; font-size: 1.5em; position: absolute; top: 25%; right: 4%;">&times;</a>
+
+  </div>
+  <textarea id="textarea" placeholder="" style="width:800px; height:350px"></textarea>
+  <br>
+  <a href="#listo" rel="#editor" class='btn btn-jumbo'>Listo</a>
+</form>
+    </div>
+
+
+    <script type="text/javascript">
+
+
+      function colorize(){
+
+
+
+           $("ul#colors li[data-wysihtml5-command=\"foreColor\"]").each(function(){
+
+          
+
+               var _this = $(this);
+               var color = _this.attr("data-wysihtml5-command-value");
+
+               _this.css({ width:"50px", height:"12px", background : color});
+
+
+           });
+
+           listeners();
+
+         }
+
+         $.fn.title = function(title){
+
+            $(this).attr("title", title);
+
+         }
+
+
+
+
+
+         function listeners(){
+
+
+           
+
+
+             $("._full").live("click", function(e){
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                  var target = $(this).parents("div#editor");
+
+                 if(target.hasClass("fullscreen"))
+                    {
+                      target.removeClass("fullscreen");
+                      target.find("textarea:first").css({height:"350px"}); 
+                      target.find("iframe").css({height:"350px"});                       
+                      $(this).find("i").removeClass("icon-resize-small").addClass("icon-resize-full").title("pantalla completa");
+
+                    }
+                 else{
+                    
+                     target.addClass("fullscreen");
+                     target.find("textarea:first").css({height:"73%"});
+                      target.find("iframe").css({height:"73%"});                      
+              $(this).find("i").removeClass("icon-resize-full").addClass("icon-resize-small").title("pantalla normal");
+
+                     }
+
+
+             });
+
+
+              $(".html").live("click", function(e){
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                  var target = $(this).parents("div#editor").find("textarea");
+
+                 if(target.hasClass("code"))
+                    target.removeClass("code");
+                 else
+                    target.addClass("code");
+
+
+             });
+
+
+         }
+
+
+           $(colorize);
+
+   
+
+
+    </script>

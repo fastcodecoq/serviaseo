@@ -1,0 +1,351 @@
+<div class="span11" style="margin-left:1em">
+
+	 
+     <br>    
+     <br> 
+     <div id="info"></div>   
+	<!-- <div style='width:93%; margin-left:1em'><form data-table="#pqr"  data-find-table><span style="margin-top: -5px;
+display: inline-table;">Buscar</span>&nbsp;&nbsp;&nbsp;<input type="text" name="query" style="font-size: 13px;
+border-radius: 99em;
+width: 150px;
+padding: 5px 10px;"></form></div>	-->
+     <table class="stats full" style="width: 851px !important;">
+     	 <tr>
+     	 	 <td>
+     	 	 	Pedientes
+     	 	 	<br>
+     	 	 	<br>
+     		<span data-pending>0</data>     	 	 	
+     	 	 </td>
+     	 	 <td>
+     	 	 	En Revisión
+     	 	 	<br>
+     	 	 	<br>
+     		<span data-revition>0</data>     	 	 	
+     	 	 </td>
+     	 	 <td>
+     	 	 	Atendidos 
+     	 	 	<br>
+     	 	 	<br>
+     	    <span data-attended>0</data>     	 	 	
+     	 	 </td> 
+     	 	 <td>
+     	 	 	Rechazados 
+     	 	 	<br>
+     	 	 	<br>
+     	    <span data-rejected>0</data>     	 	 	
+     	 	 </td>     	 	 
+     	 </tr>
+     	 <tr><td colspan="4">
+     	 	Total 
+     	 	<br>
+     	 	<br>
+     		<span data-total>0</span>
+
+     	 </td></tr>
+     </table>
+  <br>
+  <br>
+    <div class="table-responsive">
+	 <table class='table table-hover' id="pqr" style='width:840px; margin-left:1em'>
+	   <thead style="background:#f9f9f9">
+	   	<!-- <tr>
+	   		<td colspan="9"><form class="toCenter"> <input type="text" placeholder="Buscar..."><span class="icon-search"></span></form> </td>
+	   	</tr> -->
+	 	<tr>	 		 
+	 		<td data-pqr-filter><b># Sol. <i class='icon-filter' data-field="solicitud" data-type="search" data-pqr-filter></i></b></td>
+	 		<td><b>Sede <i class='icon-filter' data-field="sede" data-pqr-filter></i></b></td>
+	 		<td style="text-align:center" ><b>Estado <i class='icon-filter' data-field="status" data-pqr-filter></i></b></td>
+	 		<td><b>Nombre</b></td>
+	 		<td ><b>Documento</b> <i class='icon-filter' data-field="document" data-type="search" data-pqr-filter></i></td>
+	 		<td><b>Nic</b></td>
+	 		<td><b>Correo</b></td>
+	 		<td colspan="2"><b>Solicitud</b></td>	 		
+	 	</tr>
+	  </thead>
+	  <tbody>
+	
+
+	  </tbody>
+	 </table>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+ 	
+ 	var model = "<tr>"
+	 		+"<td >{{num}}</td>"
+	 		+"<td>{{sed}}</td>"
+	 		+"<td >{{status}}</td>"
+	 		+"<td>{{nom}}</td>"
+	 		+"<td>{{doc}}</td>"
+	 		+"<td>{{nic}}</td>"
+	 		+"<td data-email>{{mail}}</td>"
+	 		+"<td style='min-width: 74px'>{{sol}}</i></td>"	 		
+	 		+"<td><i data-sol='{{ext-sol}}' style='color:gray' title='Ver más' class='icon-external-link' data-extend-sol></td>"
+	 	    +"</tr>";
+    
+    var status = "<div class='sedy' {{pqr_id}} {{pqr_status}}><span>{{status_val}}</span>&nbsp;<span class='caret' style='margin-top:8px'></span></class>";
+
+    var dlg = dialog.show;
+    var statuses = ["Accede", "Accede Parc.", "No Accede", "Modificado", "Revocado", "Rechazado", "Traslada por Competencia", "Pendiente Respuesta", -1, "Archiva"];
+    var statt = "";
+    for(x in statuses)
+      if(statuses[x] != -1 && !(statuses[x] instanceof Function))
+        statt += "<li data-val='"+x+"' data-change-status>&nbsp;&nbsp;"+ statuses[x]+"</i>";
+
+
+	function extend_sol(){
+		  dialog.show($(this).attr("data-sol"));
+	}
+
+	function pqr_status(){	
+
+	    var status = "<ul class='select-list' >"+statt+"</ul>";
+
+	        window.pqr_id = $(this).attr("data-pqr-id");
+	        window.sedy = $(this);
+	        console.log(window.sedy);
+		  
+		    dlg(status);
+	}
+
+	function pqr_change_status(){
+		  var val = $(this).attr("data-val");
+		  var data = { status : val, id : window.pqr_id };
+      
+		  dlg("Procesando...");
+		  if(val === window.sedy.attr("data-val"))
+		  	 {		  	 
+		  	 	dialog.hide();
+		  	 	return false;
+		  	 }
+		  $.ajax({
+		  	 url : "/panel/apps/pqr/pqr.change.status.php",
+		  	 data : data,
+		  	 type : "POST",
+		  	 success : function(rs){
+		  	 		
+		  	 		console.log(rs);
+		  	 		
+		  	 		if(rs.error)
+		  	 			{
+		  	 				dlg(rs.error);
+		  	 				return false;
+		  	 			}
+
+		  	 		window.pqr_id = undefined;
+		  	 		ant_sts = parseInt(window.sedy.attr("data-pqr-status"));
+		  	 		window.sedy.attr("data-pqr-status", val);		  
+		  	 		window.sedy.find("span:first").text( statuses[val]);	 		
+		  	 		window.sedy = undefined;	
+		  	 		window.stats[ant_sts]--;
+		  	 		window.stats[val]++;
+		  	 		render_stats();		  	 		  	 				  	 	
+		  	 		dialog.hide();
+
+		  	 },
+		  	 error : function(err){ console.log(err); }
+		  });	  
+	}
+
+
+	function render_stats(){
+
+		     var rs = window.stats;		
+		     console.log(window.stats);
+		     var _pend = ( number_format((rs[0] * 100) / rs[4],2,".") );
+		     var indicator = ((rs[0] * 100) / rs[4]) > 40;
+		         _pend = ( indicator ) ? "<span style='color:#fa5a5a'>" + _pend + "%</span>" : _pend + "%"; 
+			 var pending = _pend + " <small>(" + rs[0] + ")</small>"; 
+			 var revition = ( number_format((rs[1] * 100) / rs[4],2,".") ) + "% <small>(" + rs[1] + ")</small>"; 
+		     var _indicator = ((rs[2] * 100) / rs[4]) > 45;    
+		         _att = ( number_format((rs[2] * 100) / rs[4],2,".") );
+		         _att = (_indicator ) ? "<span style='color:color: rgb(0, 206, 0);'>" + _att + "%</span>" : _att + "%";
+			 var attended = _att + " <small>(" + rs[2] + ")</small>"; 
+			 var rejected = ( number_format((rs[3] * 100) / rs[4],2,".") ) + "% <small>(" + rs[3] + ")</small>"; 
+
+
+
+			 $("[data-pending]").html(pending);
+			 $("[data-revition]").html(revition);
+			 $("[data-attended]").html(attended);
+			 $("[data-rejected]").html(rejected);
+			 $("[data-total]").html(rs[4]);
+
+			 if(indicator && !window.lowGestion){
+			 			 	dlg("Debemos mejorar en la gestión de PQR, el porcentaje de solicitudes pendientes supera el 40%. El sistema enviará un mensaje a Gerencia, informando la situación.");
+
+			 			 	window.lowGestion = true;
+			 			 }
+	}
+
+
+    function renderPqr(){
+
+    	 $("[data-find-table]").live("submit", find_in_table);
+    	 $("[data-find-table]").live("keyup", find_in_table);
+    	 $("[data-extend-sol]").live("click", extend_sol);
+    	 $("[data-pqr-status]").live("click", pqr_status);
+    	 $("[data-change-status]").live("click", pqr_change_status);
+    	 $("[data-pqr-filter]").attr("title", "filtrar");
+
+    	  window.allRows = $("pqr tbody tr");
+
+    	  $.getJSON("/themes/serviaseo/controlers/pqr.php?find", function(rs){
+    	  		console.log(rs);
+    	  		
+    	  		render(rs.data);
+    	  });   	  	
+
+    	  $.getJSON("/panel/apps/pqr/pqr.stats.php", function(rs){ window.stats = rs; render_stats(rs); });
+
+
+    }
+
+
+
+
+
+    function render(rs){
+
+    	if(rs.length === 0)
+    	  		{    	  			
+    	  			$("#info").html("<h3 style='color:#777; margin-left:2em'>No hay información por el momento</h3>");
+    	  			$("#pqr").html("");
+    	  			return false;
+    	  		}
+
+    	  		for(x in rs){
+                             
+                              var content = model
+    	  		    	  				.replace("\{\{num\}\}", rs[x].num_pqr)
+    	  		    	  				.replace("\{\{sed\}\}", rs[x].sede)
+    	  		    	  				.replace("\{\{nom\}\}", rs[x].name)
+    	  		    	  				.replace("\{\{doc\}\}", rs[x].cc)
+    	  		    	  				.replace("\{\{nic\}\}", rs[x].nic)
+    	  		    	  				.replace("\{\{mail\}\}", rs[x].email)
+    	  		    	  				.replace("\{\{sol\}\}", rs[x].msg.substring(0,10) + "...")
+    	  		    	  				.replace("\{\{ext-sol\}\}", rs[x].msg);
+
+    	  		    	  				var stus = statuses[rs[x].status];    	  		    	  			
+    	  		    	  				
+    	  		   content = content.replace("\{\{status\}\}", status.replace("\{\{status_val\}\}", stus)
+    	  		    	  	                                         .replace("\{\{pqr_id\}\}", "data-pqr-id=" + x)
+    	  		    	  	                                         .replace("\{\{pqr_status\}\}", "data-pqr-status=" + rs[x].status)
+    	  		    	  	                                         );    	  		    	  				
+    	  		    	  			$("#pqr tbody").append(content);
+    	  		    	  		}
+
+    }
+
+
+    function find_in_table(){
+    	 var tcont = $($(this).attr("data-table")).find("tbody:first");
+    	 var query =  $("input[name='query']").val();
+
+    	 if(query.split("").length < 3)
+    	 	return false;
+
+    	 var rgq = new RegExp(query, "g");
+    	 var rows = tcont.find("tr");
+    	 var ouput = "";    	 
+
+    	 for(x in rows){
+
+    	 	var fields = $(rows[x]).find("td");
+    	 	var doc = $(fields[3]);
+    	 	var sede = $(fields[1]);
+    	 	var num = $(fields[0]);
+    	 	if( doc.text().match(rgq) || sede.text().match(rgq) || num.text().match(rgq) )
+    	 		ouput += "<tr>" + $(rows[x]).html() + "</tr>";
+
+    	 }
+
+
+    	 tcont.html(ouput);
+
+
+
+    }
+
+
+    $(renderPqr);
+
+
+   
+
+   function number_format (number, decimals, dec_point, thousands_sep) {
+  // From: http://phpjs.org/functions
+  // +   original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+  // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // +     bugfix by: Michael White (http://getsprink.com)
+  // +     bugfix by: Benjamin Lupton
+  // +     bugfix by: Allan Jensen (http://www.winternet.no)
+  // +    revised by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+  // +     bugfix by: Howard Yeend
+  // +    revised by: Luke Smith (http://lucassmith.name)
+  // +     bugfix by: Diogo Resende
+  // +     bugfix by: Rival
+  // +      input by: Kheang Hok Chin (http://www.distantia.ca/)
+  // +   improved by: davook
+  // +   improved by: Brett Zamir (http://brett-zamir.me)
+  // +      input by: Jay Klehr
+  // +   improved by: Brett Zamir (http://brett-zamir.me)
+  // +      input by: Amir Habibi (http://www.residence-mixte.com/)
+  // +     bugfix by: Brett Zamir (http://brett-zamir.me)
+  // +   improved by: Theriault
+  // +      input by: Amirouche
+  // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // *     example 1: number_format(1234.56);
+  // *     returns 1: '1,235'
+  // *     example 2: number_format(1234.56, 2, ',', ' ');
+  // *     returns 2: '1 234,56'
+  // *     example 3: number_format(1234.5678, 2, '.', '');
+  // *     returns 3: '1234.57'
+  // *     example 4: number_format(67, 2, ',', '.');
+  // *     returns 4: '67,00'
+  // *     example 5: number_format(1000);
+  // *     returns 5: '1,000'
+  // *     example 6: number_format(67.311, 2);
+  // *     returns 6: '67.31'
+  // *     example 7: number_format(1000.55, 1);
+  // *     returns 7: '1,000.6'
+  // *     example 8: number_format(67000, 5, ',', '.');
+  // *     returns 8: '67.000,00000'
+  // *     example 9: number_format(0.9, 0);
+  // *     returns 9: '1'
+  // *    example 10: number_format('1.20', 2);
+  // *    returns 10: '1.20'
+  // *    example 11: number_format('1.20', 4);
+  // *    returns 11: '1.2000'
+  // *    example 12: number_format('1.2000', 3);
+  // *    returns 12: '1.200'
+  // *    example 13: number_format('1 000,50', 2, '.', ' ');
+  // *    returns 13: '100 050.00'
+  // Strip all characters but numerical ones.
+  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function (n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + Math.round(n * k) / k;
+    };
+  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1).join('0');
+  }
+  return s.join(dec);
+}
+	
+
+</script>

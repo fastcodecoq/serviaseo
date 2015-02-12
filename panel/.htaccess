@@ -1,0 +1,23 @@
+Options +FollowSymLinks  
+Options -Indexes
+
+RewriteEngine On  
+
+RewriteBase /panel
+  
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f  
+ 
+#RewriteRule ^(\w+)$  ./index.php?f=$1 [QSA,L]
+RewriteRule ^login$  ./login.php
+RewriteRule ^dev_on$ ./core/php/dev_mode.php?switch=on [QSA,L]
+RewriteRule ^dev_off$ ./core/php/dev_mode.php [QSA,L]
+
+RewriteRule ^share/(.*)$ share.php?f=$1
+RewriteRule ^s/(.*)$ ./core/php/app.redirect.php?short=$1 [QSA,L]
+RewriteRule ^qr/i=(.*)$ ./core/php/app.genQR.php?qr=$1 [QSA,L]
+RewriteRule ^f/(.*)$ ../medios/$1 [QSA,L]
+RewriteRule ^t/([0-9]*)/(.*)$ ../medios/thumbs/$1/$2 [QSA,L]
+RewriteRule ^assets/(.*)$ ./$1 [QSA,L]
+
+

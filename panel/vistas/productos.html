@@ -1,0 +1,100 @@
+<div class='span12' style='margin-left:2.4em; width:90%'>
+<h3 style="margin-left:1em;
+display: inline-block">Productos</h3> 
+<a href='#!/tienda' class='pull-right'target="_blank" style="margin-right: 5em;">Crear Nuevo <i class="icon-plus"></i></a>
+<a href='#!/' class='pull-right'target="_blank" style="margin-right: 2em;"><i class="icon-arrow-left"></i> Volver </a>
+</div>
+<br >
+<br >
+<table class='table table-stripped' id="products" >
+
+<thead>
+<tr>
+<td>Imagen</td>
+<td>Nombre</td>
+<td>Precio</td>
+<td>Cantidad</td>
+<td>Catergoría</td>
+<td>Descripcion</td>
+<td>Vendidos</td>
+<td></td>
+</tr>
+</thead>
+
+<tbody>
+
+</tbody>
+</table>
+
+	<script>
+
+	$.ajax({
+
+		url : "core/php/app.getProductos.php",
+		data : {},
+		type : "GET",
+		dataType : "JSON",
+		success : function(rs){
+
+			console.log(rs);
+			
+			if(rs.success == 1)
+			{
+
+				var pro = rs.rs;
+				var opts = "<div class='opts'>" +
+				            "<a href='#edit' title='editar' class='opt'><i class='icon-edit'></i></a>"+
+				            "<a href='#eliminar' class='opt del'rel='%_id%' data-role='producto' title='eliminar'><i class='icon-remove'></i></a></div>";
+				var text = "<tr><td><a href='/f/%img%' target='_blank'><img src='/t/60/%img%' alt='' /></a></td>" +
+							"<td>%nombre%</td>" +
+							"<td>$%precio%</td>" +
+							"<td>%cantidad%</td>" +
+							"<td>%categoria%</td>" +
+							"<td>%descripcion%</td>" +
+							"<td>%vendidos%</td>" +
+							"<td>"+ opts +"</td></tr>";
+
+				var table = $("#products tbody");						
+
+				for(i=0; i < pro.length ; i++)
+				{
+
+					var p = pro[i];
+					var portada = p.fotos.split(";");
+						portada = portada[0];					
+
+					t = text.replace("%img%",portada);
+					t = t.replace("%img%",portada);
+					t = t.replace("%nombre%",short(p.nombre));
+					t = t.replace("%precio%",p.precio);
+					t = t.replace("%cantidad%",p.cantidad);
+					t = t.replace("%categoria%",p.categoria);
+					t = t.replace("%descripcion%", short(p.descripcion));
+					t = t.replace("%vendidos%",p.vendidos);
+					t = t.replace("%_id%",p._id.$id);
+
+					table.append(t);
+
+				}
+			}			
+
+		}
+
+	});
+
+
+  function short(str){
+
+
+  	return (str.split("").length > 12) ?
+  	        
+  	        "<span title='" + str + "'>" + str.substring(0,12) + "...</span>"
+  	        
+  	        :
+
+  	        str;
+
+
+  }
+
+	</script>

@@ -1,0 +1,91 @@
+<div id="map-wrap">
+      	 <div style="position:absolute; left:0; top:0; width:100%; z-index:2000">
+      	 	<br>
+      	 	<div class="controlator toCenter">
+      	 	<a href="#" class="top-optt" data-cancel-route>Cancelar</a>       	 		
+                  <a href="#" class="top-optt" data-restart-route>Reiniciar</a> 
+      	 	<a href="#" class="top-optt" data-restart-route>Agregar Ruta</a> 
+      	 	<a href="#" class="top-optt" data-asig-route>Asignar</a> 
+      	   </div>
+      	 </div>
+      	 <div id="map">
+      	 </div>
+      </div>
+
+      <script src="//maps.googleapis.com/maps/api/js?sensor=true&callback=inimap"></script>          
+      <script src="/panel/js/map.controller.js"></script>
+
+
+
+      <script type="text/javascript">
+
+      $.fn.hours = function(){
+
+      	  for( i = 1 ; i < 24 ; i ++)
+      	  {	
+      	  	 var ampm = (i < 12 ) ? "am" : "pm";
+      	  	 var hour = (i < 12) ? i : i - 12;
+      	  	 $(this).append("<option value='{{hour}}'>{{hour}}</option>".replace(/\{\{hour\}\}/g, hour + ":00 " + ampm));
+      	  	 $(this).append("<option value='{{hour}}'>{{hour}}</option>".replace(/\{\{hour\}\}/g, hour + ":30 " + ampm));
+      	  }
+
+      	  	 $(this).append("<option value='{{hour}}'>{{hour}}</option>".replace(/\{\{hour\}\}/g, "12:00 am" ));
+      }
+
+      $.fn.days = function(){
+
+      	  var days = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Domingo"];
+
+      	  for( x in days)      	
+      	     if(days[x])        	  	 
+      	   	  $(this).append("<option value='"+x+"'>{{day}}</option>".replace(/\{\{day\}\}/g, days[x]));      	  
+      	  	 
+      }
+
+      function route_controller(){
+      	
+      	 $("#map-wrap").addClass("visy");    
+      	 toCenter();        	     	
+      	 create_zone_in_map();
+
+      }
+
+      function asig_controller(){
+
+      	points = save_created_zone();
+
+      	if(points.length === 0){
+      		 alert("No hay ruta para asignar");
+      		 return false;
+      	}
+
+      	$("#map-wrap").removeClass("visy");      	
+      	points = JSON.stringify(points);
+      	save(points);
+      	$("input[name='polygone']").val(points);
+      	$("[data-trace-route]").addClass("trace-ok");
+
+      }
+
+      function save(points){
+
+      }
+
+      function cancel_trace(){
+      	remove_zone_of_map();
+      	$("#map-wrap").removeClass("visy");
+
+      }
+
+      function inicia(){
+      	 
+      	  $("[data-hours]").hours();      	
+      	  $("[data-days]").days();      	
+		  $("[data-trace-route]").live("click", route_controller);
+		  $("[data-asig-route]").live("click", asig_controller);
+		  $("[data-restart-route]").live("click", remove_zone_of_map);
+		  $("[data-cancel-route]").live("click", cancel_trace);
+      }
+
+      $(inicia);
+      </script>

@@ -1,0 +1,71 @@
+<h3 style="margin-left:1em;
+display: inline-block">Sliders</h3>
+<a href='#!/sliders' class='pull-right'target="_blank" style="margin-right: 5em;"><i class='icon-plus'></i> Agregar Nuevo</a> 
+<a href='#!/sitio-web' class='pull-right'target="_blank" style="margin-right: 2em;"><i class='icon-arrow-left'></i> Volver </a>
+<br >
+<br >
+<table class='table table-stripped' id="sliderss" style='width:93%; margin-left:1em'>
+
+<thead>
+<tr>
+<td></td>
+<td>Lenguaje</td>
+<td></td>
+</tr>
+</thead>
+
+<tbody>
+
+</tbody>
+</table>
+
+	<script>
+
+	$.ajax({
+
+		url : "core/php/app.getSliders.php",
+		data : {all:1},
+		type : "GET",
+		dataType : "JSON",
+		success : function(rs){
+
+			console.log(rs);
+			
+			if(rs.success == 1)
+			{
+
+				var pro = rs.rs;
+				var opts = "<div class='opts'>" + "<a href='#eliminar' class='opt del'rel='%_id%' data-role='slider' title='eliminar'><i class='icon-remove'></i></a></div>";
+				var text = "<tr><td><div style='max-height:45px; overflow:hidden'><a href='/f/%img%' target='_blank' ><img src='t/150/%img%' alt='' /></a></div></td><td>%lang%</td>" +
+							"<td>"+ opts +"</td></tr>";
+
+				var table = $("#sliderss tbody");						
+
+				for(i=0; i < pro.length ; i++)
+				{
+
+					var p = pro[i];
+					var portada = p.slider;					
+
+					t = text.replace("%img%",portada);
+					t = t.replace("%img%",portada);
+					t = t.replace("%_id%",p._id.$id);
+					t = t.replace("%lang%",p.lang);
+
+					table.append(t);
+
+				}
+			}			
+
+		},
+		error: function(err){
+
+			console.log(err);
+
+		}
+
+	});
+
+
+
+	</script>

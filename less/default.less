@@ -1,0 +1,273 @@
+@import "mixin.less";
+@import url(http://fonts.googleapis.com/css?family=Allerta);
+
+body{
+		
+ position: absolute;
+width: 100%;
+max-width: 100%;
+min-height: 100%;
+height: 100%;
+background: url(/fasalud/themes/fasalud/imagenes/bg.jpg) no-repeat -143px 0 fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+background-color: #86C0C5;
+
+}
+
+
+.toCenter{	display:table !important; margin:0 auto !important;}
+.full{ width: 100%; display:block; position:relative;}
+
+.effect2
+{
+  position: relative;
+}
+.effect2:before, .effect2:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.effect2:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+
+
+#container{
+			
+	.back(white);
+	.toCenter;
+width: 79%;
+min-width: 1010px;
+
+}
+
+
+header{ 
+
+	
+	#menu{
+		background: rgba(22, 91, 194, 1);
+padding: 1em 0 0 0;
+height: 57px;
+line-height: 1;
+color: white;
+border-top: 1px solid rgba(51, 51, 51, 0.1);
+	 
+	   ul{
+
+	     *{ transition: all .3s;}
+
+	   	  li{ 
+
+				margin: 0 7px 0 14px !important;	   	  	 
+
+	   	     a{ 
+	   	       	
+	   	       	padding: 1em;
+	   	       	display:block;
+	   	       	font-size:14px;
+	   	       	font-weight:bold;
+ 				border-bottom: 2px solid rgba(128, 128, 128, 0.02);
+ 				color:white;
+ 				letter-spacing: 1px;
+ 				font-family: 'Allerta', sans-serif;
+ 				text-shadow: 0 0 1px rgb(17, 33, 85);
+	   	       
+	   	       &:hover{ text-decoration: none;
+background: #ECECEC;
+border-bottom: 2px solid #1b76eb;
+color: #444;
+text-shadow: none;
+}
+                  
+                  }
+
+	   	      }
+	   	     
+
+	   	   }
+
+	   }	 
+
+	}
+	
+ 
+ #info-wraper{
+
+    min-height:400px;    
+    background:white;
+
+ }
+
+
+
+ footer{
+
+    background: rgba(128, 128, 128, 0.39);
+padding: 4em 0;
+border-top:1px solid rgba(51, 51, 51, 0.1);
+
+ }
+
+
+
+ #slider{
+
+   height:400px;
+   overflow:hidden;
+
+    img{ width:100% !important; }
+
+ }
+
+ #slider-wraper{
+
+     &:hover > .controls{ opacity:.99; }
+
+
+ }
+
+
+ #sliderControls{
+
+position: absolute;
+bottom: 0;
+margin: 0 auto;
+right: 50px;
+z-index: 1000;
+opacity:0.70;
+
+    span{
+   	    
+   	    padding: .5em;
+background: rgb(22, 168, 22);
+display: inline-block;
+color: white;
+font-weight: bold;
+font-size: 3em;
+margin-right: .2em;
+cursor:default;
+
+border-bottom: 2px solid rgb(63, 121, 63);
+
+text-align: center;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+
+  &:hover{
+     text-decoration:none;
+     color:white;
+     background: lighten(#16a816, 2%);
+  }
+  &:active{ border:0; }
+
+   	    }
+
+ }
+
+
+article.info{
+
+		width: 88%;
+display: table;
+margin: 0 auto;
+
+
+  img{ border-radius: 5px; }
+
+  p{ line-height: 1.5; width: 59%; }
+
+}
+
+
+.divider{
+	
+	height: inherit;
+border-top: 1px solid rgba(0, 0, 0, 0.12);
+display: block;
+width: 70%;
+margin: 0 auto;
+
+}
+
+
+#contacto{
+		
+		form{
+
+		  input, textarea{
+		  width: 95% !important;
+border-radius: 2em !important;
+padding: 1em;
+margin-top: 1em;
+border: 1px solid #BEBEBE;
+box-shadow: inset 0 2px 5px rgb(189, 189, 189);
+-webkit-resize:none;
+-o-resize:none;
+-moz-resize:none;
+resize:none;
+		  }
+
+		  textarea{ height: 120px; }
+
+		}
+
+}
+
+
+.buton{margin-right: 50px;
+padding: .7em;
+margin-top: 3px;
+background: #16a816;
+color: white;
+text-shadow: none;
+padding: 1em;
+border-bottom: 2px solid rgb(63, 121, 63);
+  &:hover{
+     text-decoration:none;
+     color:white;
+     background: lighten(#16a816, 2%);
+  }
+  &:active{ border:0; }
+}
+
+button{ border: none; background:none;}
+
+
+#map{ height:420px; 
+ 
+ img {
+  max-width: none !important;
+}
+}
+
+

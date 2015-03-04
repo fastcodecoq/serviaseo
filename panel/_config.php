@@ -7,7 +7,7 @@
 	    else{
 	    
 	    define("burl","http://" . $_SERVER["SERVER_NAME"] );
-	    define("dpath","/fasalud");
+	    define("dpath","/cms2lite");
 
 	     }
 

@@ -333,7 +333,7 @@ FileETag None
 RewriteEngine On
 
 
-RewriteBase /
+RewriteBase /cms2lite
 
 RewriteRule ^inicio$ ./index.php
 RewriteRule ^nosotros$ ./index.php?v=nosotros

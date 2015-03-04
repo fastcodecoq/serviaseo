@@ -3,7 +3,7 @@ Options -Indexes
 
 RewriteEngine On  
 
-RewriteBase /panel
+RewriteBase /cms2lite/panel
   
 RewriteCond %{SCRIPT_FILENAME} !-d  
 RewriteCond %{SCRIPT_FILENAME} !-f  

@@ -5,7 +5,7 @@
 		if($_SERVER["SERVER_NAME"] === "gomosoft.com")
 		{
 			
-			define("path", "/");
+			define("path", "/cms2lite");
 
 		}
 	    else if( $_SERVER["SERVER_NAME"] === "localhost" )

@@ -30,7 +30,7 @@
 
 
   // if( ((dev_mode == "on" OR !web_finished)  && !isset($_SESSION["dev"])) ) 
-    //       echo "<script> window.location = '/dev' </script>";
+    //    work   echo "<script> window.location = '/dev' </script>";
 
 
   if(isset($_COOKIE["dev"])){     
